@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Golden Coqui — El Yunque Rainforest Retreat</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9932A;
+    --gold-light: #F2D98B;
+    --gold-pale: #FBF5E6;
+    --forest: #1C3A28;
+    --forest-mid: #2E5C3E;
+    --forest-light: #4A8A60;
+    --cream: #FAF7F0;
+    --warm-white: #FFFDF8;
+    --text-dark: #1A1A18;
+    --text-mid: #4A4A42;
+    --text-muted: #7A7A70;
+    --border: rgba(0,0,0,0.1);
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 48px rgba(0,0,0,0.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--forest);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.2rem; letter-spacing: 0.03em; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-book-btn { background: var(--gold); color: #fff !important; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 500 !important; transition: background 0.2s !important; }
+  .nav-book-btn:hover { background: #b07d1e !important; }
+
+  .hero {
+    position: relative; min-height: 92vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: var(--forest);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(28,58,40,0.45) 0%, rgba(28,58,40,0.72) 100%);
+    z-index: 1;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; color: #fff;
+    max-width: 740px; padding: 2rem;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.2rem; font-weight: 500; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 7vw, 4.4rem); line-height: 1.12; margin-bottom: 1.2rem; font-weight: 600; }
+  .hero h1 em { color: var(--gold-light); font-style: italic; }
+  .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-bottom: 2.4rem; font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .hero-cta { display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary { background: var(--gold); color: #fff; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 500; font-size: 1rem; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: 'DM Sans', sans-serif; display: inline-block; }
+  .btn-primary:hover { background: #b07d1e; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: #fff; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 500; font-size: 1rem; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.5); cursor: pointer; transition: border-color 0.2s, background 0.2s; font-family: 'DM Sans', sans-serif; display: inline-block; }
+  .btn-outline:hover { border-color: var(--gold-light); background: rgba(255,255,255,0.08); }
+  .hero-stats {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2;
+    display: flex; gap: 2.5rem;
+    background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+    padding: 1rem 2.5rem; color: #fff;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--gold-light); }
+  .hero-stat-lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); letter-spacing: 0.05em; }
+
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--forest-light); font-weight: 500; margin-bottom: 0.8rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.2; color: var(--forest); margin-bottom: 1rem; }
+  .section-desc { color: var(--text-mid); max-width: 560px; font-weight: 300; font-size: 1.05rem; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+  .about-img { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: var(--forest-mid); }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; }
+  .about-img-badge { position: absolute; bottom: 1.2rem; left: 1.2rem; background: var(--gold); color: #fff; font-size: 0.8rem; padding: 0.4rem 0.9rem; border-radius: 20px; font-weight: 500; }
+  .amenities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 2rem; }
+  .amenity { display: flex; align-items: center; gap: 0.7rem; font-size: 0.92rem; color: var(--text-mid); }
+  .amenity-icon { width: 32px; height: 32px; background: var(--gold-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+
+  .gallery-section { background: var(--forest); color: #fff; }
+  .gallery-section .section-label { color: var(--gold-light); }
+  .gallery-section .section-title { color: #fff; }
+  .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 220px 220px; gap: 10px; margin-top: 2.5rem; border-radius: 16px; overflow: hidden; }
+  .gallery-item { background: var(--forest-mid); overflow: hidden; position: relative; }
+  .gallery-item:first-child { grid-row: span 2; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+  .gallery-item:hover img { transform: scale(1.04); }
+
+  .booking-section { background: var(--warm-white); }
+  .booking-wrapper { display: grid; grid-template-columns: 1fr 380px; gap: 3rem; margin-top: 2.5rem; align-items: start; }
+
+  .calendar-card { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
+  .cal-header { background: var(--forest); color: #fff; padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .cal-month-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; }
+  .cal-nav { display: flex; gap: 0.5rem; }
+  .cal-nav button { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .cal-nav button:hover { background: rgba(255,255,255,0.3); }
+  .cal-grid { padding: 1rem 1.5rem 1.5rem; }
+  .cal-days-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 0.75rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.05em; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; }
+  .cal-dates { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .cal-day:hover:not(.booked):not(.past) { background: var(--gold-pale); color: var(--gold); }
+  .cal-day.past { color: #ccc; cursor: default; }
+  .cal-day.booked { background: #FEE2E2; color: #EF4444; cursor: not-allowed; text-decoration: line-through; }
+  .cal-day.selected-start, .cal-day.selected-end { background: var(--forest); color: #fff; font-weight: 500; }
+  .cal-day.in-range { background: rgba(46,92,62,0.12); color: var(--forest); border-radius: 0; }
+  .cal-day.selected-start { border-radius: 8px 0 0 8px; }
+  .cal-day.selected-end { border-radius: 0 8px 8px 0; }
+  .cal-day.selected-start.selected-end { border-radius: 8px; }
+  .cal-day.empty { cursor: default; }
+  .cal-legend { display: flex; gap: 1.2rem; flex-wrap: wrap; padding: 0 1.5rem 1.2rem; font-size: 0.78rem; color: var(--text-muted); }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .legend-dot.available { background: var(--forest); }
+  .legend-dot.booked { background: #FEE2E2; border: 1px solid #EF4444; }
+  .legend-dot.selected { background: rgba(46,92,62,0.12); }
+
+  .sync-notice { background: var(--gold-pale); border: 1px solid var(--gold-light); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1.2rem; font-size: 0.85rem; color: var(--text-mid); }
+  .sync-notice strong { color: var(--gold); }
+  .sync-links { margin-top: 0.6rem; display: flex; gap: 1rem; }
+  .sync-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--forest); text-decoration: none; font-weight: 500; border: 1px solid var(--forest-light); padding: 0.3rem 0.7rem; border-radius: 6px; transition: background 0.2s; }
+  .sync-link:hover { background: var(--forest); color: #fff; }
+
+  .booking-form-card { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); padding: 1.8rem; position: sticky; top: 80px; }
+  .price-display { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+  .price-amount { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--forest); font-weight: 600; }
+  .price-unit { color: var(--text-muted); font-size: 0.9rem; }
+  .price-platforms { display: flex; gap: 0.6rem; margin-left: auto; align-items: center; }
+  .platform-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 4px; font-weight: 500; }
+  .badge-airbnb { background: #FFE0DA; color: #FF5A5F; }
+  .badge-vrbo { background: #E0F0FF; color: #1A5EB8; }
+  .form-group { margin-bottom: 1rem; }
+  .form-label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .form-input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text-dark); background: var(--cream); transition: border-color 0.2s; outline: none; }
+  .form-input:focus { border-color: var(--forest-light); background: #fff; }
+  .price-breakdown { background: var(--cream); border-radius: 10px; padding: 1rem; margin: 1.2rem 0; font-size: 0.9rem; }
+  .price-line { display: flex; justify-content: space-between; padding: 0.35rem 0; color: var(--text-mid); }
+  .price-line.total { font-weight: 500; color: var(--text-dark); border-top: 1px solid var(--border); margin-top: 0.4rem; padding-top: 0.7rem; font-size: 0.98rem; }
+  .book-btn { width: 100%; background: var(--forest); color: #fff; border: none; padding: 1rem; border-radius: 10px; font-size: 1.05rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em; }
+  .book-btn:hover { background: var(--forest-mid); transform: translateY(-1px); }
+  .book-disclaimer { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.8rem; }
+
+  .location-section { background: var(--cream); }
+  .map-frame-full { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); height: 420px; background: var(--forest-mid); margin-top: 2.5rem; }
+  .map-frame-full iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .attract-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2rem 0 1.2rem; }
+  .attract-tab {
+    padding: 0.45rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;
+    border: 1.5px solid var(--border); background: #fff; color: var(--text-mid);
+    cursor: pointer; transition: all 0.18s; font-family: 'DM Sans', sans-serif;
+  }
+  .attract-tab:hover { border-color: var(--forest-light); color: var(--forest); }
+  .attract-tab.active { background: var(--forest); color: #fff; border-color: var(--forest); }
+
+  .attract-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .attract-card {
+    background: #fff; border-radius: 12px; border: 1px solid var(--border);
+    padding: 1rem 1.1rem; transition: box-shadow 0.2s;
+  }
+  .attract-card:hover { box-shadow: var(--shadow); }
+  .attract-card-top { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.5rem; }
+  .attract-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .icon-beach { background: #E0F2FE; }
+  .icon-nature { background: #DCFCE7; }
+  .icon-food { background: #FEF3C7; }
+  .attract-name { font-weight: 500; font-size: 0.93rem; color: var(--text-dark); line-height: 1.3; }
+  .attract-dist { font-size: 0.78rem; color: var(--gold); font-weight: 500; margin-top: 2px; }
+  .attract-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; }
+  .attract-link { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.6rem; font-size: 0.78rem; color: var(--forest); font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(46,92,62,0.25); padding-bottom: 1px; transition: color 0.15s; }
+  .attract-link:hover { color: var(--forest-light); }
+  .attract-panel { display: none; }
+  .attract-panel.active { display: block; }
+
+  .nearby-name { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); }
+  .nearby-dist { font-size: 0.82rem; color: var(--text-muted); }
+
+  .reviews-section { background: var(--forest); }
+  .reviews-section .section-label { color: var(--gold-light); }
+  .reviews-section .section-title { color: #fff; }
+  .reviews-section .section-desc { color: rgba(255,255,255,0.7); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .review-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.5rem; }
+  .review-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.8rem; }
+  .review-text { font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.65; font-weight: 300; }
+  .review-author { margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 500; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: #fff; border-radius: 20px; padding: 2.5rem; max-width: 520px; width: 90%; box-shadow: var(--shadow-lg); position: relative; }
+  .modal-close { position: absolute; top: 1.2rem; right: 1.2rem; background: var(--cream); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: background 0.2s; }
+  .modal-close:hover { background: #eee; }
+  .modal h2 { font-family: 'Playfair Display', serif; color: var(--forest); margin-bottom: 0.4rem; }
+  .modal-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .modal-summary { background: var(--cream); border-radius: 10px; padding: 1rem; font-size: 0.88rem; margin-bottom: 1.5rem; color: var(--text-mid); line-height: 1.8; }
+  .modal-summary strong { color: var(--text-dark); }
+  .stripe-mock { background: var(--cream); border: 1.5px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+  .stripe-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .stripe-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.6rem; }
+  .stripe-input { padding: 0.65rem 0.9rem; border: 1.5px solid var(--border); border-radius: 7px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; width: 100%; background: #fff; }
+  .stripe-powered { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
+  .pay-btn { width: 100%; background: var(--forest); color: #fff; border: none; padding: 1rem; border-radius: 10px; font-size: 1rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
+  .pay-btn:hover { background: var(--forest-mid); }
+
+  footer { background: var(--text-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 2.5rem; font-size: 0.85rem; }
+  footer a { color: var(--gold-light); text-decoration: none; }
+  footer strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 860px) {
+    .about-grid, .booking-wrapper, .location-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: span 1; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .booking-form-card { position: static; }
+    .hero-stats { display: none; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Casa Golden Coqui</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#booking">Book</a>
+    <a href="#location">Location</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#booking" class="nav-book-btn">Reserve Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-img" src="https://a0.muscache.com/im/pictures/miso/Hosting-1182624292758044075/original/da20ecf1-67e6-4482-abc4-613fc5f9ae2c.jpeg" alt="Casa Golden Coqui" crossorigin="anonymous">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">El Yunque Rainforest &nbsp;·&nbsp; Río Grande, Puerto Rico</div>
+    <h1>Rainforest Relaxation<br>at <em>Casa Golden Coqui</em></h1>
+    <p class="hero-sub">A charming 3-bedroom retreat nestled in the lush beauty of El Yunque. Wake to birdsong, sip coffee on your balcony, and let the golden coqui sing you to sleep.</p>
+    <div class="hero-cta">
+      <a href="#booking" class="btn-primary">Check Availability</a>
+      <a href="#gallery" class="btn-outline">See the Property</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">★ 5.0</div>
+      <div class="hero-stat-lbl">Perfect Rating</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3 BR</div>
+      <div class="hero-stat-lbl">King Beds</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">8</div>
+      <div class="hero-stat-lbl">Max Guests</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2 min</div>
+      <div class="hero-stat-lbl">To El Yunque</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">The Property</div>
+    <h2 class="section-title">Your Private Rainforest Haven</h2>
+    <p class="section-desc">Escape to tranquility in this charming vacation home nestled amidst the lush beauty of El Yunque Rainforest in serene Río Grande, Puerto Rico.</p>
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1182624292758044075/original/558f5f77-0ac4-4297-8a07-75553865f2e2.jpeg" alt="Casa Golden Coqui" crossorigin="anonymous">
+        <div class="about-img-badge">Entire Home · 8 Guests · 3 King Beds</div>
+      </div>
+      <div>
+        <p style="color:var(--text-mid); font-weight:300; font-size:1.02rem; margin-bottom:1.5rem;">
+          Tucked into the hillside beside El Yunque National Forest, Casa Golden Coqui offers a genuine rainforest escape without sacrificing modern comfort. Named for Puerto Rico's beloved golden tree frog, this home wraps you in nature's embrace.
+        </p>
+        <p style="color:var(--text-mid); font-weight:300; font-size:1.02rem; margin-bottom:2rem;">
+          Step onto multiple balconies for morning coffee with breathtaking mountain vistas, then spend your days exploring nearby beaches, waterfalls, and natural pools — and return each evening to the soothing chorus of coquis echoing through the forest.
+        </p>
+        <div class="amenities-grid">
+          <div class="amenity"><div class="amenity-icon">🛏️</div> 3 King Bedrooms</div>
+          <div class="amenity"><div class="amenity-icon">🚿</div> 2.5 Bathrooms</div>
+          <div class="amenity"><div class="amenity-icon">🍳</div> Full Kitchen</div>
+          <div class="amenity"><div class="amenity-icon">📶</div> Fast Wi-Fi</div>
+          <div class="amenity"><div class="amenity-icon">💻</div> Dedicated Workspace</div>
+          <div class="amenity"><div class="amenity-icon">📺</div> TV</div>
+          <div class="amenity"><div class="amenity-icon">👕</div> Washer</div>
+          <div class="amenity"><div class="amenity-icon">🔑</div> Self Check-in (Keypad)</div>
+          <div class="amenity"><div class="amenity-icon">🌿</div> Multiple Balconies</div>
+          <div class="amenity"><div class="amenity-icon">🅿️</div> Free Parking</div>
+          <div class="amenity"><div class="amenity-icon">🌊</div> 15 min to Luquillo Beach</div>
+          <div class="amenity"><div class="amenity-icon">🐸</div> Coqui Soundtrack</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery" style="padding: 4rem 2rem;">
+  <div class="container">
+    <div class="section-label">Gallery</div>
+    <h2 class="section-title" style="color:#fff;">A Glimpse of Paradise</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1182624292758044075/original/c0b54060-4fa5-4f5d-94bb-05a915118fde.jpeg" alt="Casa Golden Coqui main view" crossorigin="anonymous">
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1182624292758044075/original/52ef2d97-8638-4fbb-9b44-602cbb9a8082.jpeg" alt="Interior" crossorigin="anonymous">
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1182624292758044075/original/90a855ad-e0ad-41b9-8a0d-60c4061e19b1.jpeg" alt="Outdoor area" crossorigin="anonymous">
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1182624292758044075/original/da20ecf1-67e6-4482-abc4-613fc5f9ae2c.jpeg" alt="Rainforest view" crossorigin="anonymous">
+      </div>
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1182624292758044075/original/558f5f77-0ac4-4297-8a07-75553865f2e2.jpeg" alt="Bedroom" crossorigin="anonymous">
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:1.5rem;">
+      <a href="https://www.airbnb.com/rooms/1182624292758044075" target="_blank" style="color:var(--gold-light); font-size:0.9rem; text-decoration:none; border-bottom: 1px solid rgba(242,217,139,0.4); padding-bottom:2px;">View all photos on Airbnb →</a>
+    </p>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+  <div class="container">
+    <div class="section-label">Book Your Stay</div>
+    <h2 class="section-title">Check Availability & Reserve</h2>
+    <p class="section-desc">Book directly and save on platform fees. Calendar is synced in real-time with Airbnb and VRBO.</p>
+    <div class="booking-wrapper">
+      <div>
+        <div class="calendar-card">
+          <div class="cal-header">
+            <div class="cal-month-title" id="calMonthTitle"></div>
+            <div class="cal-nav">
+              <button onclick="changeMonth(-1)">&#8249;</button>
+              <button onclick="changeMonth(1)">&#8250;</button>
+            </div>
+          </div>
+          <div class="cal-grid">
+            <div class="cal-days-header">
+              <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+            </div>
+            <div class="cal-dates" id="calDates"></div>
+          </div>
+          <div class="cal-legend">
+            <div class="legend-item"><div class="legend-dot available"></div> Available</div>
+            <div class="legend-item"><div class="legend-dot booked"></div> Booked</div>
+            <div class="legend-item"><div class="legend-dot selected"></div> Your Selection</div>
+          </div>
+        </div>
+        <div class="sync-notice">
+          <strong>📅 Live Calendar Sync</strong> — Availability is automatically synced across platforms. To connect your Airbnb or VRBO calendar, paste your iCal URL or use the import button.
+          <div class="sync-links">
+            <a href="https://www.airbnb.com/rooms/1182624292758044075" target="_blank" class="sync-link">🏠 View on Airbnb</a>
+            <a href="#" class="sync-link" onclick="showSyncModal(); return false;">🔗 Import iCal Feed</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form-card">
+        <div class="price-display">
+          <span class="price-amount" id="priceDisplay">$175</span>
+          <span class="price-unit">/ night</span>
+          <div class="price-platforms">
+            <span class="platform-badge badge-airbnb">Airbnb</span>
+            <span class="platform-badge badge-vrbo">VRBO</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Check-in</label>
+            <input type="date" class="form-input" id="checkinInput" onchange="updatePricing()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Check-out</label>
+            <input type="date" class="form-input" id="checkoutInput" onchange="updatePricing()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Guests</label>
+            <select class="form-input" id="guestsInput" onchange="updatePricing()">
+              <option value="1">1 guest</option>
+              <option value="2" selected>2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4">4 guests</option>
+              <option value="5">5 guests</option>
+              <option value="6">6 guests</option>
+              <option value="7">7 guests</option>
+              <option value="8">8 guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nights</label>
+            <input type="text" class="form-input" id="nightsDisplay" value="—" readonly style="background:#f5f5f0; cursor:default;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" id="guestName" placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="guestEmail" placeholder="you@example.com">
+        </div>
+        <div class="price-breakdown" id="priceBreakdown" style="display:none;">
+          <div class="price-line"><span id="nightsLabel">5 nights × $175</span><span id="nightsTotal">$875</span></div>
+          <div class="price-line"><span>Cleaning fee</span><span>$85</span></div>
+          <div class="price-line"><span>Service fee</span><span id="serviceFee">$0</span></div>
+          <div class="price-line total"><span>Total</span><span id="grandTotal">$960</span></div>
+        </div>
+        <button class="book-btn" onclick="openBookingModal()">Reserve Now →</button>
+        <div class="book-disclaimer">No charge until confirmed &nbsp;·&nbsp; Free cancellation 48hrs before check-in</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION & ATTRACTIONS -->
+<section class="location-section" id="location">
+  <div class="container">
+    <div class="section-label">Location & Attractions</div>
+    <h2 class="section-title">Explore the Area</h2>
+    <p class="section-desc">Casa Golden Coqui is your basecamp for the best of northeast Puerto Rico — rainforest, beaches, swimming holes, and incredible restaurants, all within easy reach. These are Jessica & Josh's personal favorites.</p>
+
+    <!-- FULL-WIDTH MAP -->
+    <div class="map-frame-full">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1900!2d-65.8562622!3d18.3387969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c0361850f910437%3A0xbd039cd0fd8cd094!2sCasa%20Golden%20Coqui!5e0!3m2!1sen!2sus!4v1"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- TABS -->
+    <div class="attract-tabs">
+      <button class="attract-tab active" onclick="showTab('beaches', this)">🏖️ Beaches</button>
+      <button class="attract-tab" onclick="showTab('nature', this)">🌿 Nature & Swimming</button>
+      <button class="attract-tab" onclick="showTab('food', this)">🍽️ Restaurants</button>
+    </div>
+
+    <!-- BEACHES -->
+    <div class="attract-panel active" id="tab-beaches">
+      <div class="attract-grid">
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🌅</div>
+            <div><div class="attract-name">Playa Piñones</div><div class="attract-dist">25 min drive</div></div>
+          </div>
+          <div class="attract-desc">Gorgeous sunsets and great for swimming. A well-known beach with a long breakwater that protects it from the Atlantic waves.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/h2qayuD5rga58uX28" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🌴</div>
+            <div><div class="attract-name">Playa Azul</div><div class="attract-dist">25 min drive · Josh & Jessica's family favorite!</div></div>
+          </div>
+          <div class="attract-desc">Fun waves! A long stretch of sand lined with picture-perfect palm trees — a great mix of sun and shade.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/c4ny1oe3X14TjP4m7" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🏝️</div>
+            <div><div class="attract-name">Playa La Selva</div><div class="attract-dist">25 min drive</div></div>
+          </div>
+          <div class="attract-desc">A gorgeous untouched beach on a reserve — huge and often deserted. Requires a short jungle walk. Big, fun waves. Check rip current warnings before swimming.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/c114g5C6hgVcLbqw7" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🍢</div>
+            <div><div class="attract-name">Luquillo Kiosks & Beach</div><div class="attract-dist">25 min drive</div></div>
+          </div>
+          <div class="attract-desc">~60 family-owned kiosks selling food, drinks, and souvenirs along a calm swimming beach. Wave runner rentals available too.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/AWd7ogBycYPMSUfDA" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🏄</div>
+            <div><div class="attract-name">Playa La Pared</div><div class="attract-dist">25 min drive</div></div>
+          </div>
+          <div class="attract-desc">Surfing beach with a surf school on site. At the point between here and Playa Azul, there's great coral for snorkeling.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/49r77WFVTY1EVfEu6" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🌙</div>
+            <div><div class="attract-name">Mar Chiquita Beach</div><div class="attract-dist">1 hr 15 min drive</div></div>
+          </div>
+          <div class="attract-desc">One of the most popular natural pools on the north coast. A half-moon cove formed by two limestone outcroppings. Great for swimming, snorkeling, and tide pools.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/NGpxWnULLSECaEuY7" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🐢</div>
+            <div><div class="attract-name">Jobo's Beach</div><div class="attract-dist">2 hr 15 min drive</div></div>
+          </div>
+          <div class="attract-desc">Scenic beach and popular surf site with clear waters and rock formations. Protected area where you can often spot sea turtles swimming around you. Good snorkeling near the rocks.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/RLA47jLTB7gmvGwcA" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🤿</div>
+            <div><div class="attract-name">Peña Blanca Beach</div><div class="attract-dist">2 hr 30 min drive · $5 cash parking</div></div>
+          </div>
+          <div class="attract-desc">Wonderful beach for snorkeling — bring your own gear or rent nearby. Well worth the drive for serious snorkelers.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/u9H3j4rtJXQQdo5L9" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">⭐</div>
+            <div><div class="attract-name">Playa Flamenco — Culebra</div><div class="attract-dist">50 min to ferry + 55 min ferry · $5/person</div></div>
+          </div>
+          <div class="attract-desc">Rated one of the top 3 beaches in the world. Great snorkeling and swimming. Cash only entry. Ferry from Ceiba — purchase tickets in advance.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/A5g74MaQJK3dcsx99" target="_blank">Beach map →</a>
+          &nbsp;
+          <a class="attract-link" href="https://www.puertoricoferry.com/en/routes-schedules/ceiba-culebra/" target="_blank">Ferry tickets →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-beach">🐠</div>
+            <div><div class="attract-name">Playa Malones — Culebra</div><div class="attract-dist">50 min to ferry + 55 min ferry</div></div>
+          </div>
+          <div class="attract-desc">Amazing snorkeling and sea treasure hunting with tons of sea fans, coral, and diverse fish. No entry fee but bring your own snorkel gear. Same ferry as Flamenco.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/5fYkvEZfcdNT6nSP9" target="_blank">Beach map →</a>
+          &nbsp;
+          <a class="attract-link" href="https://www.puertoricoferry.com/en/routes-schedules/ceiba-culebra/" target="_blank">Ferry tickets →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NATURE & SWIMMING -->
+    <div class="attract-panel" id="tab-nature">
+      <div class="attract-grid">
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">💧</div>
+            <div><div class="attract-name">Los Pilones Waterfall</div><div class="attract-dist">13 min drive</div></div>
+          </div>
+          <div class="attract-desc">Beautiful waterfalls and a large swimming hole. Hike is a little difficult in spots, ~20–25 min. Park on the road by the fence. Worth every step!</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/zoQbnTzALHd5sd126" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">🌊</div>
+            <div><div class="attract-name">Cascada Río Espíritu Santo</div><div class="attract-dist">15 min drive</div></div>
+          </div>
+          <div class="attract-desc">Hidden waterfall and swimming hole just steps from the road, with a panoramic ocean overlook high in a lesser-known corner of El Yunque.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/iCe7Yti3kRJ1a3je8" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">🌳</div>
+            <div><div class="attract-name">El Yunque National Forest</div><div class="attract-dist">20 min drive · $8 entry fee</div></div>
+          </div>
+          <div class="attract-desc">The only tropical rainforest in the US national forest system. Nearly 29,000 acres of hiking trails, waterfalls, and breathtaking mountain rivers.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/wF6D2QNFxTs68Qdp9" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">🛝</div>
+            <div><div class="attract-name">Las Paylas Natural Water Slide</div><div class="attract-dist">30 min drive · $5–10/car cash only</div></div>
+          </div>
+          <div class="attract-desc">Smooth river rocks form natural water slides and swimming holes. On private property — small entry fee, cash only. An absolute blast!</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/GXQ5KSpAiVdxCxjv8" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">✨</div>
+            <div><div class="attract-name">Bioluminescent Bay — Fajardo</div><div class="attract-dist">45 min drive</div></div>
+          </div>
+          <div class="attract-desc">Kayak under the stars as the bay glows blue-green when the water is disturbed. Best during a new moon. Many tour companies — call ahead to reserve.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/aaBQr4JxrxyRrwKLA" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">🏙️</div>
+            <div><div class="attract-name">Old San Juan</div><div class="attract-dist">35 min drive</div></div>
+          </div>
+          <div class="attract-desc">16th-century historic site with colorful houses, cobbled streets, shady plazas, great cocktail bars, and renowned Caribbean fusion restaurants.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/ZeLars2FxS2T4HGH7" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-nature">🏞️</div>
+            <div><div class="attract-name">Charco Azul Slot Canyon</div><div class="attract-dist">1 hr 15 min drive + 15 min walk</div></div>
+          </div>
+          <div class="attract-desc">A slot canyon in the jungle with a spring-fed stream — swim and jump off rocks into cool fresh water. Pair with Mar Chiquita Beach for a perfect day trip. ⚠️ Do NOT visit on rainy days.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/gcnbqCMD4x1tLoMHA" target="_blank">View on map →</a>
+        </div>
+
+      </div>
+      <p style="margin-top:1rem; font-size:0.82rem; color:var(--text-muted);">⚠️ Always check rip current warnings before ocean swimming: <a href="https://www.weather.gov/sju/beach_usvi" target="_blank" style="color:var(--forest);">weather.gov/sju/beach_usvi</a></p>
+    </div>
+
+    <!-- RESTAURANTS -->
+    <div class="attract-panel" id="tab-food">
+      <div class="attract-grid">
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🥐</div>
+            <div><div class="attract-name">Rico Pan Bakery</div><div class="attract-dist">12 min drive · Breakfast & Lunch</div></div>
+          </div>
+          <div class="attract-desc">A local favorite bakery — perfect for a morning pastry or quick lunch before a day of adventuring.</div>
+          <a class="attract-link" href="https://g.co/kgs/1ztCcb4" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🥩</div>
+            <div><div class="attract-name">Patria Mía Puerto Rican Chinchorro</div><div class="attract-dist">12 min drive · Steakhouse & Seafood</div></div>
+          </div>
+          <div class="attract-desc">Steakhouse and seafood in a beautiful garden setting with gorgeous tropical flowers lining the path. A must-visit for dinner.</div>
+          <a class="attract-link" href="https://g.co/kgs/qXgyXNT" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🍽️</div>
+            <div><div class="attract-name">Zimple in Canóvanas</div><div class="attract-dist">17 min drive</div></div>
+          </div>
+          <div class="attract-desc">A local gem in Canóvanas worth the short detour.</div>
+          <a class="attract-link" href="https://g.co/kgs/2muACsV" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🌊</div>
+            <div><div class="attract-name">Cafetería La Diferencia</div><div class="attract-dist">25 min drive · Near Playa Azul</div></div>
+          </div>
+          <div class="attract-desc">Cheap, delicious breakfast and lunch. The Cuban sandwiches are awesome.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/o2F3P2hs6EpHmAdh8" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🎵</div>
+            <div><div class="attract-name">Kiosks at Playa La Pared</div><div class="attract-dist">25 min drive · Luquillo</div></div>
+          </div>
+          <div class="attract-desc">Variety of restaurant stands in a park with a central bar. Sometimes features live music and events on a stage.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/rb3au3TTq4qHhiNz9" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🫔</div>
+            <div><div class="attract-name">Latin Gyros</div><div class="attract-dist">25 min drive · Luquillo</div></div>
+          </div>
+          <div class="attract-desc">A fun and unique fusion spot in Luquillo. Great for a casual lunch after the beach.</div>
+          <a class="attract-link" href="https://g.co/kgs/YYLwTCx" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🌊</div>
+            <div><div class="attract-name">New Reef Restaurant</div><div class="attract-dist">25 min drive · Loíza · Oceanfront</div></div>
+          </div>
+          <div class="attract-desc">Right on the ocean with a beautiful view looking down the beach toward San Juan.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/KKkJnG8hvU2M6d6e7" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🦞</div>
+            <div><div class="attract-name">Super Benjy's Cuisine</div><div class="attract-dist">50 min drive · Naguabo · Worth the trip!</div></div>
+          </div>
+          <div class="attract-desc">Oceanfront with stunning views, a wood-fired oven, and a specialty in lobster and pizza. They also serve the best coconut mojito on the island. Absolutely worth the drive.</div>
+          <a class="attract-link" href="https://maps.app.goo.gl/uVmsTzHjwzr7A1mM7" target="_blank">View on map →</a>
+        </div>
+
+        <div class="attract-card">
+          <div class="attract-card-top">
+            <div class="attract-icon icon-food">🏖️</div>
+            <div><div class="attract-name">El Coral</div><div class="attract-dist">50 min drive · Naguabo · Bayfront</div></div>
+          </div>
+          <div class="attract-desc">Beautiful lunch or dinner spot with seating overlooking the bay. Gorgeous views make this a memorable meal.</div>
+          <a class="attract-link" href="https://g.co/kgs/cNGdkw6" target="_blank">View on map →</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="section-label">Guest Reviews</div>
+    <h2 class="section-title" style="color:#fff;">★ 5.0 — Perfect on Airbnb</h2>
+    <p class="section-desc">Rated 5 stars across cleanliness, check-in, and communication by every guest.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Waking up to the sounds of the rainforest was absolutely magical. The coquis serenaded us every night. The house is charming, comfortable, and incredibly well-positioned for exploring El Yunque."</p>
+        <div class="review-author">— Airbnb Guest · March 2025</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Jessica and Josh are wonderful hosts — responsive, thoughtful, and genuinely welcoming. The self check-in was seamless and the house had everything we needed for a perfect rainforest retreat."</p>
+        <div class="review-author">— Airbnb Guest · January 2025</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The perfect balance of seclusion and convenience. We hiked in the morning, hit Luquillo Beach in the afternoon, and came home to this peaceful haven. Three king beds was perfect for our family."</p>
+        <div class="review-author">— Airbnb Guest · December 2024</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Casa Golden Coqui is a true hidden gem. Multiple balconies to enjoy the views, the kitchen had everything, and the rainforest atmosphere is unlike anywhere else we've stayed in Puerto Rico."</p>
+        <div class="review-author">— Airbnb Guest · November 2024</div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:2rem;">
+      <a href="https://www.airbnb.com/rooms/1182624292758044075#reviews" target="_blank" style="color:var(--gold-light); font-size:0.9rem; text-decoration:none; border-bottom:1px solid rgba(242,217,139,0.4); padding-bottom:2px;">Read all reviews on Airbnb →</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <strong>Casa Golden Coqui</strong> &nbsp;·&nbsp; Río Grande, Puerto Rico<br>
+  <p style="margin-top: 0.5rem;">
+    Hosted by Jessica & Josh Golden &nbsp;·&nbsp;
+    <a href="/cdn-cgi/l/email-protection#660507150701090a020308050917130f26010b070f0a4805090b"><span class="__cf_email__" data-cfemail="1576746674727a7971707b767a64607c557278747c793b767a78">[email&#160;protected]</span></a>
+    &nbsp;·&nbsp; <a href="https://www.airbnb.com/rooms/1182624292758044075" target="_blank">Airbnb Listing</a>
+    &nbsp;·&nbsp; <a href="https://maps.app.goo.gl/RBXy626wXKUwPBEbA" target="_blank">Google Maps</a>
+  </p>
+  <p style="margin-top: 0.8rem; font-size:0.78rem;">© 2026 Casa Golden Coqui. All rights reserved. Payments processed securely via Stripe.</p>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Complete Your Booking</h2>
+    <p class="modal-sub">You're almost there! Secure your stay at Casa Golden Coqui.</p>
+    <div class="modal-summary" id="modalSummary">Loading booking details...</div>
+    <div class="stripe-mock">
+      <div class="stripe-label">Card Details</div>
+      <input type="text" class="stripe-input" placeholder="Card number" style="width:100%; margin-bottom:0.5rem;" maxlength="19" oninput="formatCard(this)">
+      <div class="stripe-row">
+        <input type="text" class="stripe-input" placeholder="MM / YY" maxlength="7">
+        <input type="text" class="stripe-input" placeholder="CVC" maxlength="4">
+        <input type="text" class="stripe-input" placeholder="ZIP">
+      </div>
+    </div>
+    <div class="stripe-powered">🔒 Powered by <strong style="color:#635BFF;">Stripe</strong> &nbsp;— Secure, encrypted payment</div>
+    <button class="pay-btn" onclick="processPayment()" id="payBtn">Pay Now →</button>
+  </div>
+</div>
+
+<!-- SYNC MODAL -->
+<div class="modal-overlay" id="syncModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSyncModal()">✕</button>
+    <h2>iCal Calendar Sync</h2>
+    <p class="modal-sub">Keep your booking calendar in sync with Airbnb and VRBO automatically.</p>
+    <div style="margin-bottom:1.2rem;">
+      <label class="form-label" style="display:block; margin-bottom:0.4rem;">Airbnb iCal URL</label>
+      <input type="url" class="form-input" placeholder="https://www.airbnb.com/calendar/ical/...">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="form-label" style="display:block; margin-bottom:0.4rem;">VRBO iCal URL</label>
+      <input type="url" class="form-input" placeholder="https://www.vrbo.com/icalendar/...">
+    </div>
+    <button class="pay-btn" onclick="closeSyncModal()" style="background:var(--forest);">Save & Sync Calendar</button>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.8rem; text-align:center;">Calendars sync every 2 hours. Changes on Airbnb or VRBO will be reflected here automatically.</p>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const NIGHTLY_RATE = 175;
+  const CLEANING_FEE = 85;
+
+  const bookedRanges = [
+    { start: new Date(2026, 3, 10), end: new Date(2026, 3, 15) },
+    { start: new Date(2026, 3, 22), end: new Date(2026, 3, 26) },
+    { start: new Date(2026, 4, 5), end: new Date(2026, 4, 12) },
+    { start: new Date(2026, 4, 18), end: new Date(2026, 4, 22) },
+  ];
+
+  let currentYear = new Date().getFullYear();
+  let currentMonth = new Date().getMonth();
+  let selectStart = null, selectEnd = null;
+
+  function isBooked(d) { return bookedRanges.some(r => d >= r.start && d <= r.end); }
+
+  function renderCalendar() {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('calMonthTitle').textContent = months[currentMonth] + ' ' + currentYear;
+    const first = new Date(currentYear, currentMonth, 1);
+    const last = new Date(currentYear, currentMonth + 1, 0);
+    const today = new Date(); today.setHours(0,0,0,0);
+    let html = '';
+    for (let i = 0; i < first.getDay(); i++) html += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= last.getDate(); d++) {
+      const date = new Date(currentYear, currentMonth, d);
+      let cls = 'cal-day';
+      if (date < today) cls += ' past';
+      else if (isBooked(date)) cls += ' booked';
+      else {
+        if (selectStart && selectEnd) {
+          if (date.getTime() === selectStart.getTime() && date.getTime() === selectEnd.getTime()) cls += ' selected-start selected-end';
+          else if (date.getTime() === selectStart.getTime()) cls += ' selected-start';
+          else if (date.getTime() === selectEnd.getTime()) cls += ' selected-end';
+          else if (date > selectStart && date < selectEnd) cls += ' in-range';
+        } else if (selectStart && date.getTime() === selectStart.getTime()) cls += ' selected-start selected-end';
+      }
+      html += `<div class="${cls}" onclick="selectDate('${date.toISOString()}')">${d}</div>`;
+    }
+    document.getElementById('calDates').innerHTML = html;
+  }
+
+  function selectDate(isoStr) {
+    const date = new Date(isoStr);
+    const today = new Date(); today.setHours(0,0,0,0);
+    if (date < today || isBooked(date)) return;
+    if (!selectStart || (selectStart && selectEnd)) {
+      selectStart = date; selectEnd = null;
+    } else {
+      let s = selectStart, e = date;
+      if (e < s) { let t = s; s = e; e = t; }
+      let check = new Date(s); check.setDate(check.getDate()+1);
+      let blocked = false;
+      while (check < e) { if (isBooked(check)) { blocked = true; break; } check.setDate(check.getDate()+1); }
+      if (blocked) { selectStart = date; selectEnd = null; }
+      else { selectStart = s; selectEnd = e; }
+    }
+    document.getElementById('checkinInput').value = selectStart ? formatDateInput(selectStart) : '';
+    document.getElementById('checkoutInput').value = selectEnd ? formatDateInput(selectEnd) : '';
+    updatePricing();
+    renderCalendar();
+  }
+
+  function formatDateInput(d) {
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function changeMonth(dir) {
+    currentMonth += dir;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  }
+
+  function updatePricing() {
+    const ci = document.getElementById('checkinInput').value;
+    const co = document.getElementById('checkoutInput').value;
+    if (!ci || !co) { document.getElementById('priceBreakdown').style.display = 'none'; document.getElementById('nightsDisplay').value = '—'; return; }
+    const d1 = new Date(ci), d2 = new Date(co);
+    const nights = Math.round((d2 - d1) / 86400000);
+    if (nights <= 0) { document.getElementById('nightsDisplay').value = '—'; return; }
+    document.getElementById('nightsDisplay').value = nights + (nights === 1 ? ' night' : ' nights');
+    const subtotal = nights * NIGHTLY_RATE;
+    const service = Math.round(subtotal * 0.08);
+    const total = subtotal + CLEANING_FEE + service;
+    document.getElementById('nightsLabel').textContent = nights + ' night' + (nights===1?'':'s') + ' × $' + NIGHTLY_RATE;
+    document.getElementById('nightsTotal').textContent = '$' + subtotal;
+    document.getElementById('serviceFee').textContent = '$' + service;
+    document.getElementById('grandTotal').textContent = '$' + total;
+    document.getElementById('priceBreakdown').style.display = 'block';
+  }
+
+  function openBookingModal() {
+    const name = document.getElementById('guestName').value;
+    const email = document.getElementById('guestEmail').value;
+    const ci = document.getElementById('checkinInput').value;
+    const co = document.getElementById('checkoutInput').value;
+    if (!name || !email || !ci || !co) { alert('Please fill in all booking details before reserving.'); return; }
+    const nights = document.getElementById('nightsDisplay').value;
+    const total = document.getElementById('grandTotal').textContent;
+    document.getElementById('modalSummary').innerHTML = `
+      <strong>${name}</strong><br>${email}<br><br>
+      <strong>Check-in:</strong> ${new Date(ci+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}<br>
+      <strong>Check-out:</strong> ${new Date(co+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}<br>
+      <strong>Duration:</strong> ${nights}<br>
+      <strong>Total due:</strong> ${total}
+    `;
+    document.getElementById('bookingModal').classList.add('active');
+  }
+
+  function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
+  function showSyncModal() { document.getElementById('syncModal').classList.add('active'); }
+  function closeSyncModal() { document.getElementById('syncModal').classList.remove('active'); }
+  function formatCard(el) { let v = el.value.replace(/\D/g,'').substring(0,16); el.value = v.replace(/(.{4})/g,'$1 ').trim(); }
+
+  function processPayment() {
+    const btn = document.getElementById('payBtn');
+    btn.textContent = 'Processing...'; btn.disabled = true;
+    setTimeout(() => {
+      closeModal(); btn.textContent = 'Pay Now →'; btn.disabled = false;
+      alert('🎉 Booking Confirmed!\n\nThank you for booking Casa Golden Coqui! A confirmation email will be sent to you shortly. Jessica and Josh look forward to welcoming you!');
+    }, 1800);
+  }
+
+  document.getElementById('bookingModal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
+  document.getElementById('syncModal').addEventListener('click', function(e) { if(e.target===this) closeSyncModal(); });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  function showTab(name, btn) {
+    document.querySelectorAll('.attract-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.attract-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  renderCalendar();
+</script>
+</body>
+</html>
