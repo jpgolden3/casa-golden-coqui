@@ -389,12 +389,16 @@
 
       <div class="booking-form-card">
         <div class="price-display">
-          <span class="price-amount" id="priceDisplay">$175</span>
+          <span class="price-amount" id="priceDisplay">$275</span>
           <span class="price-unit">/ night</span>
           <div class="price-platforms">
             <span class="platform-badge badge-airbnb">Airbnb</span>
             <span class="platform-badge badge-vrbo">VRBO</span>
           </div>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.2rem;">
+          <span style="font-size:0.75rem; background:#DCFCE7; color:#16a34a; padding:0.25rem 0.7rem; border-radius:20px; font-weight:500;">🗓️ 10% weekly discount</span>
+          <span style="font-size:0.75rem; background:#DCFCE7; color:#16a34a; padding:0.25rem 0.7rem; border-radius:20px; font-weight:500;">📅 20% monthly discount</span>
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -434,10 +438,11 @@
           <input type="email" class="form-input" id="guestEmail" placeholder="you@example.com">
         </div>
         <div class="price-breakdown" id="priceBreakdown" style="display:none;">
-          <div class="price-line"><span id="nightsLabel">5 nights × $175</span><span id="nightsTotal">$875</span></div>
-          <div class="price-line"><span>Cleaning fee</span><span>$85</span></div>
+          <div class="price-line"><span id="nightsLabel">5 nights × $275</span><span id="nightsTotal">$1,375</span></div>
+          <div class="price-line" id="discountLine" style="display:none; color:#16a34a;"><span id="discountLabel">Weekly discount (10%)</span><span id="discountAmount">-$0</span></div>
+          <div class="price-line"><span>Cleaning fee</span><span>$250</span></div>
           <div class="price-line"><span>Service fee</span><span id="serviceFee">$0</span></div>
-          <div class="price-line total"><span>Total</span><span id="grandTotal">$960</span></div>
+          <div class="price-line total"><span>Total</span><span id="grandTotal">$1,625</span></div>
         </div>
         <button class="book-btn" onclick="openBookingModal()">Reserve Now →</button>
         <div class="book-disclaimer">No charge until confirmed &nbsp;·&nbsp; Free cancellation 48hrs before check-in</div>
@@ -773,7 +778,7 @@
     &nbsp;·&nbsp; <a href="https://www.airbnb.com/rooms/1182624292758044075" target="_blank">Airbnb Listing</a>
     &nbsp;·&nbsp; <a href="https://maps.app.goo.gl/RBXy626wXKUwPBEbA" target="_blank">Google Maps</a>
   </p>
-  <p style="margin-top: 0.8rem; font-size:0.78rem;">© 2026 Casa Golden Coqui. All rights reserved. Payments processed securely via Stripe.</p>
+  <p style="margin-top: 0.8rem; font-size:0.78rem;">© 2026 Casa Golden Coqui. All rights reserved. Payments processed securely via PayPal.</p>
 </footer>
 
 <!-- BOOKING MODAL -->
@@ -783,17 +788,14 @@
     <h2>Complete Your Booking</h2>
     <p class="modal-sub">You're almost there! Secure your stay at Casa Golden Coqui.</p>
     <div class="modal-summary" id="modalSummary">Loading booking details...</div>
-    <div class="stripe-mock">
-      <div class="stripe-label">Card Details</div>
-      <input type="text" class="stripe-input" placeholder="Card number" style="width:100%; margin-bottom:0.5rem;" maxlength="19" oninput="formatCard(this)">
-      <div class="stripe-row">
-        <input type="text" class="stripe-input" placeholder="MM / YY" maxlength="7">
-        <input type="text" class="stripe-input" placeholder="CVC" maxlength="4">
-        <input type="text" class="stripe-input" placeholder="ZIP">
-      </div>
+    <div style="background:#f0f7ff; border:1px solid #b3d4f5; border-radius:10px; padding:1rem 1.2rem; margin-bottom:1.2rem; font-size:0.85rem; color:#4A4A42;">
+      🔒 You'll be redirected to <strong>PayPal</strong> to complete your payment securely. You can pay with your PayPal account or any major credit or debit card — no PayPal account required.
     </div>
-    <div class="stripe-powered">🔒 Powered by <strong style="color:#635BFF;">Stripe</strong> &nbsp;— Secure, encrypted payment</div>
-    <button class="pay-btn" onclick="processPayment()" id="payBtn">Pay Now →</button>
+    <button class="pay-btn" onclick="processPayment()" id="payBtn" style="background:#0070BA; display:flex; align-items:center; justify-content:center; gap:0.6rem; font-size:1.05rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.828l-1.453 9.22h3.562c.524 0 .968-.382 1.05-.9l.944-5.985h2.178c4.701 0 7.432-2.674 8.15-6.96.34-2.024-.043-3.355-.037-1.17z"/></svg>
+      Pay with PayPal
+    </button>
+    <div class="book-disclaimer" style="margin-top:0.8rem;">Accepted: PayPal · Visa · Mastercard · Amex · Discover</div>
   </div>
 </div>
 
@@ -817,8 +819,8 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const NIGHTLY_RATE = 175;
-  const CLEANING_FEE = 85;
+  const NIGHTLY_RATE = 275;
+  const CLEANING_FEE = 250;
 
   const bookedRanges = [
     { start: new Date(2026, 3, 10), end: new Date(2026, 3, 15) },
@@ -900,12 +902,31 @@
     if (nights <= 0) { document.getElementById('nightsDisplay').value = '—'; return; }
     document.getElementById('nightsDisplay').value = nights + (nights === 1 ? ' night' : ' nights');
     const subtotal = nights * NIGHTLY_RATE;
-    const service = Math.round(subtotal * 0.08);
-    const total = subtotal + CLEANING_FEE + service;
+
+    let discountPct = 0;
+    let discountLabel = '';
+    if (nights >= 28) { discountPct = 0.20; discountLabel = 'Monthly discount (20%)'; }
+    else if (nights >= 7) { discountPct = 0.10; discountLabel = 'Weekly discount (10%)'; }
+
+    const discountAmt = Math.round(subtotal * discountPct);
+    const discountedSubtotal = subtotal - discountAmt;
+    const service = Math.round(discountedSubtotal * 0.08);
+    const total = discountedSubtotal + CLEANING_FEE + service;
+
     document.getElementById('nightsLabel').textContent = nights + ' night' + (nights===1?'':'s') + ' × $' + NIGHTLY_RATE;
-    document.getElementById('nightsTotal').textContent = '$' + subtotal;
-    document.getElementById('serviceFee').textContent = '$' + service;
-    document.getElementById('grandTotal').textContent = '$' + total;
+    document.getElementById('nightsTotal').textContent = '$' + subtotal.toLocaleString();
+
+    const discountLine = document.getElementById('discountLine');
+    if (discountAmt > 0) {
+      discountLine.style.display = 'flex';
+      document.getElementById('discountLabel').textContent = discountLabel;
+      document.getElementById('discountAmount').textContent = '-$' + discountAmt.toLocaleString();
+    } else {
+      discountLine.style.display = 'none';
+    }
+
+    document.getElementById('serviceFee').textContent = '$' + service.toLocaleString();
+    document.getElementById('grandTotal').textContent = '$' + total.toLocaleString();
     document.getElementById('priceBreakdown').style.display = 'block';
   }
 
@@ -930,15 +951,27 @@
   function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
   function showSyncModal() { document.getElementById('syncModal').classList.add('active'); }
   function closeSyncModal() { document.getElementById('syncModal').classList.remove('active'); }
-  function formatCard(el) { let v = el.value.replace(/\D/g,'').substring(0,16); el.value = v.replace(/(.{4})/g,'$1 ').trim(); }
 
   function processPayment() {
     const btn = document.getElementById('payBtn');
-    btn.textContent = 'Processing...'; btn.disabled = true;
-    setTimeout(() => {
-      closeModal(); btn.textContent = 'Pay Now →'; btn.disabled = false;
-      alert('🎉 Booking Confirmed!\n\nThank you for booking Casa Golden Coqui! A confirmation email will be sent to you shortly. Jessica and Josh look forward to welcoming you!');
-    }, 1800);
+    const name = document.getElementById('guestName').value;
+    const email = document.getElementById('guestEmail').value;
+    const ci = document.getElementById('checkinInput').value;
+    const co = document.getElementById('checkoutInput').value;
+    const total = document.getElementById('grandTotal').textContent.replace('$','').replace(',','');
+    const nights = document.getElementById('nightsDisplay').value;
+
+    const checkInFormatted = new Date(ci+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const checkOutFormatted = new Date(co+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const itemName = encodeURIComponent(`Casa Golden Coqui — ${checkInFormatted} to ${checkOutFormatted} (${nights})`);
+    const guestNote = encodeURIComponent(`Booking: ${name} | ${email} | Check-in: ${checkInFormatted} | Check-out: ${checkOutFormatted}`);
+
+    btn.textContent = 'Redirecting to PayPal...';
+    btn.disabled = true;
+
+    const paypalURL = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=nshadow2%40gmail.com&item_name=${itemName}&amount=${total}&currency_code=USD&custom=${guestNote}&no_shipping=1&return=https%3A%2F%2Fcasagoldencoqui.com%2F&cancel_return=https%3A%2F%2Fcasagoldencoqui.com%2F`;
+
+    setTimeout(() => { window.location.href = paypalURL; }, 800);
   }
 
   document.getElementById('bookingModal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
