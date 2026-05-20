@@ -237,11 +237,6 @@
   .modal-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
   .modal-summary { background: var(--cream); border-radius: 10px; padding: 1rem; font-size: 0.88rem; margin-bottom: 1.5rem; color: var(--text-mid); line-height: 1.8; }
   .modal-summary strong { color: var(--text-dark); }
-  .stripe-mock { background: var(--cream); border: 1.5px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
-  .stripe-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
-  .stripe-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.6rem; }
-  .stripe-input { padding: 0.65rem 0.9rem; border: 1.5px solid var(--border); border-radius: 7px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; width: 100%; background: #fff; }
-  .stripe-powered { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
   .pay-btn { width: 100%; background: var(--forest); color: #fff; border: none; padding: 1rem; border-radius: 10px; font-size: 1rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
   .pay-btn:hover { background: var(--forest-mid); }
 
@@ -378,7 +373,7 @@
   <div class="container">
     <div class="section-label">Book Your Stay</div>
     <h2 class="section-title">Check Availability & Reserve</h2>
-    <p class="section-desc">Book directly and save on platform fees. Calendar is synced in real-time with Airbnb and VRBO.</p>
+    <p class="section-desc">Pick your dates below, then complete your reservation securely on Airbnb. Our calendar is synced in real-time with Airbnb and VRBO.</p>
     <div class="booking-wrapper">
       <div>
         <div class="calendar-card">
@@ -459,7 +454,7 @@
           <div class="price-line"><span>Service fee</span><span id="serviceFee">$0</span></div>
           <div class="price-line total"><span>Total</span><span id="grandTotal">$1,625</span></div>
         </div>
-        <button class="book-btn" onclick="openBookingModal()">Reserve on Airbnb →</button>
+        <button class="book-btn" onclick="goToAirbnb()">Reserve on Airbnb →</button>
         <div class="book-disclaimer">You'll be taken to our Airbnb listing to complete your booking securely</div>
       </div>
     </div>
@@ -796,24 +791,6 @@
   <p style="margin-top: 0.8rem; font-size:0.78rem;">© 2026 Casa Golden Coqui. All rights reserved. Bookings handled securely via Airbnb.</p>
 </footer>
 
-<!-- BOOKING MODAL -->
-<div class="modal-overlay" id="bookingModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>Complete Your Booking</h2>
-    <p class="modal-sub">You're almost there! Secure your stay at Casa Golden Coqui.</p>
-    <div class="modal-summary" id="modalSummary">Loading booking details...</div>
-    <div style="background:#f0f7ff; border:1px solid #b3d4f5; border-radius:10px; padding:1rem 1.2rem; margin-bottom:1.2rem; font-size:0.85rem; color:#4A4A42;">
-      🔒 You'll be redirected to <strong>PayPal</strong> to complete your payment securely. You can pay with your PayPal account or any major credit or debit card — no PayPal account required.
-    </div>
-    <button class="pay-btn" onclick="processPayment()" id="payBtn" style="background:#0070BA; display:flex; align-items:center; justify-content:center; gap:0.6rem; font-size:1.05rem;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.828l-1.453 9.22h3.562c.524 0 .968-.382 1.05-.9l.944-5.985h2.178c4.701 0 7.432-2.674 8.15-6.96.34-2.024-.043-3.355-.037-1.17z"/></svg>
-      Pay with PayPal
-    </button>
-    <div class="book-disclaimer" style="margin-top:0.8rem;">Accepted: PayPal · Visa · Mastercard · Amex · Discover</div>
-  </div>
-</div>
-
 <!-- SYNC MODAL -->
 <div class="modal-overlay" id="syncModal">
   <div class="modal">
@@ -945,7 +922,7 @@
     document.getElementById('priceBreakdown').style.display = 'block';
   }
 
-  function openBookingModal() {
+  function goToAirbnb() {
     const ci = document.getElementById('checkinInput').value;
     const co = document.getElementById('checkoutInput').value;
     const guests = document.getElementById('guestsInput').value;
@@ -954,33 +931,9 @@
     window.open(airbnbURL, '_blank');
   }
 
-  function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
   function showSyncModal() { document.getElementById('syncModal').classList.add('active'); }
   function closeSyncModal() { document.getElementById('syncModal').classList.remove('active'); }
 
-  function processPayment() {
-    const btn = document.getElementById('payBtn');
-    const name = document.getElementById('guestName').value;
-    const email = document.getElementById('guestEmail').value;
-    const ci = document.getElementById('checkinInput').value;
-    const co = document.getElementById('checkoutInput').value;
-    const total = document.getElementById('grandTotal').textContent.replace('$','').replace(',','');
-    const nights = document.getElementById('nightsDisplay').value;
-
-    const checkInFormatted = new Date(ci+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    const checkOutFormatted = new Date(co+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    const itemName = encodeURIComponent(`Casa Golden Coqui — ${checkInFormatted} to ${checkOutFormatted} (${nights})`);
-    const guestNote = encodeURIComponent(`Booking: ${name} | ${email} | Check-in: ${checkInFormatted} | Check-out: ${checkOutFormatted}`);
-
-    btn.textContent = 'Redirecting to PayPal...';
-    btn.disabled = true;
-
-    const paypalURL = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=nshadow2%40gmail.com&item_name=${itemName}&amount=${total}&currency_code=USD&custom=${guestNote}&no_shipping=1&return=https%3A%2F%2Fcasagoldencoqui.com%2F&cancel_return=https%3A%2F%2Fcasagoldencoqui.com%2F`;
-
-    setTimeout(() => { window.location.href = paypalURL; }, 800);
-  }
-
-  document.getElementById('bookingModal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
   document.getElementById('syncModal').addEventListener('click', function(e) { if(e.target===this) closeSyncModal(); });
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
