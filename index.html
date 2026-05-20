@@ -182,6 +182,9 @@
   .book-btn { width: 100%; background: var(--forest); color: #fff; border: none; padding: 1rem; border-radius: 10px; font-size: 1.05rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em; }
   .book-btn:hover { background: var(--forest-mid); transform: translateY(-1px); }
   .book-disclaimer { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.8rem; }
+  .book-alt { text-align: center; font-size: 0.85rem; color: var(--text-mid); margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border); }
+  .book-alt a { color: var(--gold); text-decoration: none; font-weight: 500; border-bottom: 1px solid rgba(201,147,42,0.3); padding-bottom: 1px; transition: border-color 0.2s; cursor: pointer; }
+  .book-alt a:hover { border-bottom-color: var(--gold); }
 
   .location-section { background: var(--cream); }
   .map-frame-full { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); height: 420px; background: var(--forest-mid); margin-top: 2.5rem; }
@@ -456,6 +459,7 @@
         </div>
         <button class="book-btn" onclick="goToAirbnb()">Reserve on Airbnb →</button>
         <div class="book-disclaimer">You'll be taken to our Airbnb listing to complete your booking securely</div>
+        <div class="book-alt">Also bookable on <a onclick="goToVrbo()">VRBO →</a></div>
       </div>
     </div>
   </div>
@@ -786,9 +790,10 @@
     Hosted by Jessica & Josh Golden &nbsp;·&nbsp;
     <a href="/cdn-cgi/l/email-protection#660507150701090a020308050917130f26010b070f0a4805090b"><span class="__cf_email__" data-cfemail="1576746674727a7971707b767a64607c557278747c793b767a78">[email&#160;protected]</span></a>
     &nbsp;·&nbsp; <a href="https://www.airbnb.com/rooms/1182624292758044075" target="_blank">Airbnb Listing</a>
+    &nbsp;·&nbsp; <a href="https://www.vrbo.com/4279536" target="_blank">VRBO Listing</a>
     &nbsp;·&nbsp; <a href="https://maps.app.goo.gl/RBXy626wXKUwPBEbA" target="_blank">Google Maps</a>
   </p>
-  <p style="margin-top: 0.8rem; font-size:0.78rem;">© 2026 Casa Golden Coqui. All rights reserved. Bookings handled securely via Airbnb.</p>
+  <p style="margin-top: 0.8rem; font-size:0.78rem;">© 2026 Casa Golden Coqui. All rights reserved. Bookings handled securely via Airbnb and VRBO.</p>
 </footer>
 
 <!-- SYNC MODAL -->
@@ -929,6 +934,15 @@
     if (!ci || !co) { alert('Please select your check-in and check-out dates first.'); return; }
     const airbnbURL = `https://www.airbnb.com/rooms/1182624292758044075?check_in=${ci}&check_out=${co}&adults=${guests}`;
     window.open(airbnbURL, '_blank');
+  }
+
+  function goToVrbo() {
+    const ci = document.getElementById('checkinInput').value;
+    const co = document.getElementById('checkoutInput').value;
+    const guests = document.getElementById('guestsInput').value;
+    if (!ci || !co) { alert('Please select your check-in and check-out dates first.'); return; }
+    const vrboURL = `https://www.vrbo.com/4279536?arrival=${ci}&departure=${co}&adults=${guests}`;
+    window.open(vrboURL, '_blank');
   }
 
   function showSyncModal() { document.getElementById('syncModal').classList.add('active'); }
