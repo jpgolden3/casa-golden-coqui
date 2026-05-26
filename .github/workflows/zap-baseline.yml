@@ -1,0 +1,51 @@
+# OWASP ZAP Baseline Scan against the deployed production site.
+#
+# IMPORTANT: This is a POST-DEPLOY scan, not a PR gate. ZAP scans the live
+# URL, so by definition it runs after GitHub Pages has published the new
+# version. Findings are reported as a GitHub Issue (not a failed PR check).
+#
+# Runs on:
+#   - push to main (waits 90s for Pages to redeploy, then scans)
+#   - weekly cron (catches newly-disclosed vulns against unchanged code)
+#   - manual trigger via the Actions tab
+name: OWASP ZAP Baseline Scan
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Mondays, 12:00 UTC (after the CodeQL run)
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  zap_baseline:
+    name: ZAP Baseline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Wait for GitHub Pages deploy
+        # Pages typically takes 30-60s to publish after a push. 90s gives a
+        # comfortable margin so we scan the new build, not the previous one.
+        if: github.event_name == 'push'
+        run: sleep 90
+
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'https://casagoldencoqui.com'
+          # -a includes alpha-status passive scan rules (broader coverage)
+          cmd_options: '-a'
+          # Open / update a GitHub Issue summarizing findings
+          allow_issue_writing: true
+          # Don't fail the workflow run on findings — the Issue is the signal.
+          # If you want hard-fail behavior later, flip this to true.
+          fail_action: false
+          # File a SARIF artifact for the Security tab
+          artifact_name: zap-baseline-report
