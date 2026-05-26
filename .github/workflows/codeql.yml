@@ -1,0 +1,54 @@
+# Static analysis via GitHub's CodeQL.
+# Substitutes for SpotBugs (which is Java-only and would not apply here).
+# Scans JavaScript (including inline <script> blocks in HTML) for common
+# security antipatterns and bug patterns.
+#
+# Runs on:
+#   - every PR to main (results post inline on the PR)
+#   - every push to main
+#   - weekly cron so newly-disclosed query rules surface against existing code
+name: CodeQL
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    # Mondays, 06:00 UTC
+    - cron: '0 6 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      # Required to upload results to the Security tab
+      security-events: write
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # security-and-quality includes both security and code-quality queries.
+          # Use 'security-extended' if quality findings are too noisy.
+          queries: security-and-quality
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"

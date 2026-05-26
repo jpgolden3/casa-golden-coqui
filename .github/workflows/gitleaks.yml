@@ -1,0 +1,31 @@
+# Scans for secrets accidentally committed (API keys, tokens, passwords, etc).
+# Runs on every PR against main and every push to main.
+# Findings fail the check, blocking the merge if branch protection is enabled.
+name: gitleaks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # gitleaks needs full history to scan commit-by-commit
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE is only required for org-owned private repos.
+          # This repo is owned by a personal account, so the action runs free.
